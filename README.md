@@ -34,7 +34,9 @@ gulp build-demo
 pulp test
 ```
 
-*Demo App with NodeJS*
+### Running
+
+*NodeJS*
 ```shell
 npm start
 ```
