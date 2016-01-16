@@ -36,7 +36,7 @@ pulp test
 
 ### Running
 
-*NodeJS*
+*NodeJS + Hapi*
 ```shell
 npm start
 ```
