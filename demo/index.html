@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="scripts/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="scripts/vendor/jquery-2.1.4.min.js"></script>
+  <script src="scripts/vendor/bootstrap/js/bootstrap.min.js"></script>
+ <!--  <script src="http://cdn.ractivejs.org/latest/ractive.min.js"></script> -->
+
+    <script id="template" type="text/ractive">
+    <div class="row app-panel">
+      <div class="col-md-3">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            {{library}} with {{language}} &amp; {{uiLib}}
+         </div>
+         <div class="panel-body">
+            <div>
+            <img class="app-logo" src="{{logoUrl}}">
+            </div>
+         </div>
+         <div class="panel-footer clearfix">
+            <input type="button" class="btn btn-lg btn-success" on-click="increment-clicked" value="Increment">
+            <input type="button" class="btn btn-lg btn-danger" on-click="decrement-clicked" value="Decrement">
+         </div>
+      </div>
+      </div>
+    </div>
+    </script>
+
+
+  <script src="scripts/release/app.min.js"></script>
+  <link href="styles/demo.css" rel="stylesheet" type="text/css">
+  <title>Redux with PureScript</title>
+</head>
+<body>
+
+  </script>
+<div id="app"/>
+<script>
+$(function(){
+  window.app = DemoApp.redux;
+  app.main();
+});
+</script>
+</body>
+</html>

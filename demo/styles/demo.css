@@ -1,0 +1,19 @@
+/* a few simple styles */
+.app-panel {
+  padding-top: 2em;
+  padding-left: 5em;
+}
+
+.app-logo {
+  position: relative;
+  padding-left: 6.5em;
+}
+
+.component-footer {
+  padding-left: 9em;
+}
+
+.ractive-logo {
+  position: relative;
+  padding-left: 12em;
+}
