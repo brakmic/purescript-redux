@@ -7,7 +7,7 @@ import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Ractive (RactiveM, Ractive, Data(Data), on, ractive, get)
 import Control.Monad.Eff.Redux   (ReduxM, Store, Action, subscribe, createStore, getState, dispatch)
 
--- | A very simple reducer reacting to two actions: INCREMENT, DECREMENT
+-- | A simple reducer accepting two actions: INCREMENT, DECREMENT
 counter ::  Int -> Action -> Int
 counter = \v t -> case t.type of
                         "INCREMENT" -> v + 1
