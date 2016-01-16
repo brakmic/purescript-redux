@@ -7,7 +7,7 @@ the given action and optionally other properties, like `payload` etc.
 To register a store we use `createStore` and give it a `reducer` and an optional `state`
 as arguments.
 
-In the example belov register a new store by using two arguments `counter` (the reducer)
+In the example below register a new store by using two arguments `counter` (the reducer)
 and `1` (the initial state)
 
 **Hint**: *PureScript <a href="https://leanpub.com/purescript/read#leanpub-auto-curried-functions">doesn't have functions that take more than one argument</a>! I'm using JavaScript terms here
