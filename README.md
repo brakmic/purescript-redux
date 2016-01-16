@@ -28,6 +28,12 @@ gulp
 gulp build-demo
 ```
 
+*Tests*
+
+```shell
+pulp test
+```
+
 ### Demo App
 
 <img src="http://fs5.directupload.net/images/160116/4d9ovm7e.png" width="412" height="524">
