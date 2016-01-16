@@ -1,14 +1,14 @@
 # Tutorial
 
 Apps using Redux maintain their whole state in an *object tree* inside a **single** store. To manipulate
-such a state one has to emit `actions` which are plain JavaScript objects containg the `type` of
-the given action.
+such states one has to emit `actions` which are plain JavaScript objects containg the `type` of
+the given action and optionally other properties, like `payload` etc.
 
-The API for registering stores is `createStore` that expects a `reducer` and an optional `state`
+To register a store we use `createStore` and give it a `reducer` and an optional `state`
 as arguments.
 
-Here we register a new store by calling `createStore` function and two parameters `counter` (this is the reducer)
-and `1` (as the initial state)
+In the example belov register a new store by using two arguments `counter` (the reducer)
+and `1` (the initial state)
 
 **Hint**: *PureScript <a href="https://leanpub.com/purescript/read#leanpub-auto-curried-functions">doesn't have functions that take more than one argument</a>! I'm using JavaScript terms here
 because Redux is written in JavaScript.*
@@ -18,8 +18,8 @@ store <- (createStore counter 1)
 ```
 
 A `reducer` is a function that takes a `state` and an `action` and returns a new `state`. This is
-how our reducer looks like. This is a `lambda` function (a JavaScript `callback`) which is always
-indicated by an `\` (it resembles the small letter λ).
+how our reducer looks like. It's written as a `lambda` function (a `callback` in JS) which is always
+indicated with an `\` (it resembles the small greek lambda letter λ).
 
 ```haskell
 counter ::  Int -> Action -> Int
@@ -29,7 +29,7 @@ counter = \v t -> case t.type of
                         _ -> v
 ```
 
-We also want to get immediate information regarding any state changes. Therefore we define yet another `callback`.
+We also want to be informed regarding any state changes. Therefore we define yet another `callback`.
 
 ```haskell
 callback :: forall e. Store -> Eff (reduxM :: ReduxM, console :: CONSOLE | e) Unit
@@ -38,7 +38,7 @@ callback = \store -> do
                      log ("STATE: " ++ (unsafeCoerce currentState))
 ```
 
-And we register it by using Redux' `subscribe`.
+We register it by using Redux' `subscribe` function.
 
 ```haskell
 (subscribe (callback store) store)
