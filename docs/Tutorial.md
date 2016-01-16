@@ -76,4 +76,4 @@ onIncrementClicked = \r e -> do
 
 This is how the demo app works.
 
-Basically, it's a combination of a predictable container (Redux) with **real** pure functions and hostility towards any side-effects (PureScript).
+Basically, it's a combination of a *predictable container* (Redux) with *real* pure functions and <a href="http://blog.jenkster.com/2015/12/which-programming-languages-are-functional.html" target="_blank">hostility towards any side-effects</a> (PureScript).
