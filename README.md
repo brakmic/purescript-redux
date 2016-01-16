@@ -34,6 +34,12 @@ gulp build-demo
 pulp test
 ```
 
+*Demo App with NodeJS*
+```shell
+npm start
+```
+*then open* <a href="http://localhost:8080">http://localhost:8080</a>
+
 ### Demo App
 
 <img src="http://fs5.directupload.net/images/160116/4d9ovm7e.png" width="412" height="524">
