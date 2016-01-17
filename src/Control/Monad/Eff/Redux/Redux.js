@@ -34,12 +34,13 @@ var _subscribe = function(callback){
 var _dispatch = function(action){
   return function(store){
     return function(){
-      var act = null;
-      if(action &&
-        action.value0){
-        act = store.dispatch({ 'type': action.value0.type });
-      }else{
-        act = store.dispatch({ 'type': action.type });
+      var act = {};
+      if(action){
+        if(action.value0){
+          act = store.dispatch(action.value0);
+        }else{
+          act = store.dispatch(action);
+        }
       }
       return act;
     };

@@ -29,11 +29,32 @@ counter = \v t -> case t.type of
                         _ -> v
 ```
 
-We also want to be informed regarding any state changes. Therefore we define yet another `callback`.
+Redux' <a href="http://redux.js.org/docs/basics/Actions.html" target="_blank">Actions</a> are just plain POJOs.
 
 ```haskell
-callback :: forall e. Store -> Eff (reduxM :: ReduxM, console :: CONSOLE | e) Unit
-callback = \store -> do
+{ "type" : "INCREMENT", payload: "TEST INCR" }
+```
+
+The definition is located in `src/Control/Monad/Eff/Redux/Redux.purs` together with our <a href=""http://www.purescript.org/learn/ffi/ target="_blank">FFI imports</a>.
+
+```haskell
+type Action a = {
+  "type" :: String
+  | a
+}
+[...]
+foreign import createStore      :: forall a b. (a -> Action b -> a) -> a -> ReduxEff Store
+foreign import subscribe        :: forall e. (Eff e Unit) -> Store -> ReduxEff Unit
+foreign import dispatch         :: forall a. Action a -> Store -> ReduxEff (Action a)
+foreign import getState         :: forall a. Store -> ReduxEff a
+foreign import replaceReducer   :: Reducer -> Store -> ReduxEff Unit
+```
+
+We also want to be informed about any state changes. Therefore we define yet another callback called `numericListener`.
+
+```haskell
+numericListener :: forall e. Store -> Eff (reduxM :: ReduxM, console :: CONSOLE | e) Unit
+numericListener = \store -> do
                      currentState <- (getState store)
                      log ("STATE: " ++ (unsafeCoerce currentState))
 ```
@@ -70,7 +91,7 @@ That's why we can simply write **{ "type" : "INCREMENT" }** *without any extra c
 onIncrementClicked = \r e -> do
                              store <- (get "store" r)
                              log "DISPATCH: INCREMENT"
-                             action <- (dispatch { "type" : "INCREMENT" } store)
+                             action <- (dispatch { "type" : "INCREMENT", payload: "TEST INCR" } store)
                              pure unit
 ```
 

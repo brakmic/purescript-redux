@@ -27,7 +27,7 @@ onIncrementClicked :: forall event eff.
 onIncrementClicked = \r e -> do
                              store <- (get "store" r)
                              log "DISPATCH: INCREMENT"
-                             action <- (dispatch { "type" : "INCREMENT", payload: "TEST INCR" } store)
+                             action <- (dispatch { "type" : "INCREMENT", payload: "TEST INCR", blah: "boo" } store)
                              pure unit
 
 -- | Event handler for handling button clicks
@@ -43,12 +43,12 @@ onDecrementClicked :: forall event eff.
 onDecrementClicked = \r e -> do
                              store <- (get "store" r)
                              log "DISPATCH: DECREMENT"
-                             action <- (dispatch { "type" : "DECREMENT", payload: "TEST DECR" } store)
+                             action <- (dispatch { "type" : "DECREMENT", payload: "TEST DECR", mah: "moo" } store)
                              pure unit
 
--- | A simple listener `callback` for displaying the current app's state
-callback :: forall e. Store -> Eff (reduxM :: ReduxM, console :: CONSOLE | e) Unit
-callback = \store -> do
+-- | A simple listener for displaying current state
+numericListener :: forall e. Store -> Eff (reduxM :: ReduxM, console :: CONSOLE | e) Unit
+numericListener = \store -> do
                      currentState <- (getState store)
                      log ("STATE: " ++ (unsafeCoerce currentState))
 
@@ -87,8 +87,8 @@ main = do
        -- | Instantiate the UI
        ract <- ractive appSettings
 
-       -- | Subscribe with listener `callback`
-       (subscribe (callback store) store)
+       -- | Subscribe with listener `numericListener`
+       (subscribe (numericListener store) store)
 
        -- Register event-handlers
        on "increment-clicked" (onIncrementClicked ract) ract
