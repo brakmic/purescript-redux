@@ -62,10 +62,10 @@ numericListener = \store -> do
 We register it by using Redux' `subscribe` function.
 
 ```haskell
-(subscribe (callback store) store)
+(subscribe (numericListener store) store)
 ```
 
-**Hint**: The argument `store` is used to `curry` the callback.
+**Hint**: The argument `store` is used to `curry` the `numericListener` callback.
 
 And finally we register two event handlers to react to button clicks. Here we're using <a href="http://www.ractivejs.org/" target="_blank">RactiveJS</a> and
 its <a href="http://docs.ractivejs.org/latest/proxy-events" target="_blank">proxy events</a>.
