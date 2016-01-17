@@ -8,7 +8,7 @@ import Control.Monad.Eff.Ractive (RactiveM, Ractive, Data(Data), on, ractive, ge
 import Control.Monad.Eff.Redux   (ReduxM, Store, Action, subscribe, createStore, getState, dispatch)
 
 -- | A simple reducer accepting two actions: INCREMENT, DECREMENT
-counter ::  Int -> Action -> Int
+counter ::  forall a. Int -> Action a -> Int
 counter = \v t -> case t.type of
                         "INCREMENT" -> v + 1
                         "DECREMENT" -> v - 1
@@ -27,7 +27,7 @@ onIncrementClicked :: forall event eff.
 onIncrementClicked = \r e -> do
                              store <- (get "store" r)
                              log "DISPATCH: INCREMENT"
-                             action <- (dispatch { "type" : "INCREMENT" } store)
+                             action <- (dispatch { "type" : "INCREMENT", payload: "TEST INCR" } store)
                              pure unit
 
 -- | Event handler for handling button clicks
@@ -43,7 +43,7 @@ onDecrementClicked :: forall event eff.
 onDecrementClicked = \r e -> do
                              store <- (get "store" r)
                              log "DISPATCH: DECREMENT"
-                             action <- (dispatch { "type" : "DECREMENT" } store)
+                             action <- (dispatch { "type" : "DECREMENT", payload: "TEST DECR" } store)
                              pure unit
 
 -- | A simple listener `callback` for displaying the current app's state
