@@ -149,7 +149,7 @@ var extractMiddleware = function(middleware){
   return function(store){
     return function(next){
       return function(action){
-        var nxt = wrapNextDispatch(next); // wrap `next(action)` so it call be called like `next(action)()`
+        var nxt = wrapNextDispatch(next); // wrap `next(action)` so it can be called like `next(action)()`
         //currently there's no clean solution for handling PureScript namespaces in dynamically generated
         //functions. Therefore the `usual` console.log is being provided as a direct argument.
         //Please report any errors and/or solutions to this problem! Thanks!
