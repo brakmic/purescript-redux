@@ -6,7 +6,6 @@ var Redux = require('redux');
 var createStoreInternal = Redux.createStore;
 var applyMiddlewareInternal = Redux.applyMiddleware;
 var combineReducersInternal = Redux.combineReducers;
-var _global = window || global;
 var Control_Monad_Eff_Console = require("Control.Monad.Eff.Console"); //ugly! Maybe better via WebPack?
 
 //`createStore` needs a 2-parameter, pure function for creating a new store.

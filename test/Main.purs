@@ -9,13 +9,13 @@ import Control.Monad.Eff.Random    (RANDOM)
 import Control.Monad.Eff.Redux     (ReduxM, Action)
 
 -- | A simple reducer reacting to two actions: INCREMENT, DECREMENT
-counter ::  Int -> Action -> Int
+counter ::  forall a. Int -> { "type" :: String | a } -> Int
 counter = \v t -> case t.type of
                         "INCREMENT" -> v + 1
                         "DECREMENT" -> v - 1
                         _ -> v
 
-testReducer :: Int -> Action -> Boolean
+testReducer :: forall a. Int -> { "type" :: String | a } -> Boolean
 testReducer v a = (counter v a) /= v
 
 main :: forall e.

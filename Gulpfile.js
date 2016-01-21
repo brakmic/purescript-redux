@@ -74,7 +74,7 @@ gulp.task("dotpsci", function () {
 });
 
 gulp.task('clean', function (cb) {
-    del([releaseRoot + '**/*'], function (err, deletedFiles) {
+  del([releaseRoot + '**/*'], function (err, deletedFiles) {
     if(err){
       console.log('Error during deletion: ' + err);
     }
@@ -88,5 +88,5 @@ gulp.task("test", ["make"], function() {
 });
 
 
-gulp.task("build-demo", ["clean", "make-demo", "bundle-demo", "dotpsci-demo","webpack"]);
+gulp.task("build-demo", ["make-demo", "bundle-demo", "dotpsci-demo","webpack"]);
 gulp.task("default", ["bundle", "dotpsci"]);
