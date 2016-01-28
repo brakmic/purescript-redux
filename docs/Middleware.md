@@ -2,7 +2,7 @@
 
 ## A simple Logger
 
-We will now write a logger in PureScript that is similar to the one from the original Redux' <a href="http://redux.js.org/docs/advanced/Middleware.html" target="_blank">middleware docs</a>.
+We will write a logger in PureScript that is similar to the one from the original Redux' <a href="http://redux.js.org/docs/advanced/Middleware.html" target="_blank">middleware docs</a>.
 
 It looks like this:
 
