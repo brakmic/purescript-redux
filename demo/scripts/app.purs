@@ -79,7 +79,7 @@ main :: forall eff. Eff
           Unit
 main = do
        -- | Create an array of middlewares
-       let middlewares = [ (simpleLogger) ]
+       let middlewares = [ simpleLogger ]
        -- | Initialize a Redux Store while building up a chain of middlewares
        store <- (applyMiddleware middlewares counter 1)
 

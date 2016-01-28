@@ -22,7 +22,7 @@ foreign import data Store  :: *
 
 type ReduxEff a  = forall e. Eff (reduxM :: ReduxM | e) a
 
-type Reducer     = forall a b. a -> Action a b -> a
+type Reducer     = forall a b c. a -> Action b c -> a
 
 type Dispatch    = forall a b. Action a b -> ReduxEff (Action a b)
 
