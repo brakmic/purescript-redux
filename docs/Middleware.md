@@ -1,10 +1,6 @@
 ## Writing Redux-Middleware in PureScript
 
-Currently, **purescript-redux** only supports a very rough and *highly experimental* API for wiriting middlewares for **Redux**.
-
-Therefore the content of this tutorial may soon become outdated and/or replaced. However, the original design from Redux is not going to change and any problems that may arise from using the API in **purescript-redux** are due to my own inability to write proper PureScript code.
-
-## Writing a simple Logger
+## A simple Logger
 
 We will now write a logger in PureScript that is similar to the one from the original Redux' <a href="http://redux.js.org/docs/advanced/Middleware.html" target="_blank">middleware docs</a>.
 
