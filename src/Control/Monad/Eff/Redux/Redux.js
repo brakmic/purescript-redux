@@ -72,10 +72,7 @@ var _replaceReducer = function(store){
 //http://redux.js.org/docs/advanced/Middleware.html
 var _applyMiddleware = function(middlewares){
   var all = [],
-      app,
-      extracted,
-      store,
-      createStoreWithMiddleware;
+      store;
   return function(reducer){
     return function(initialState){
       return function(){
