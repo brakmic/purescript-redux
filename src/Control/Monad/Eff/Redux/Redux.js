@@ -2,8 +2,8 @@
 
 // module Control.Monad.Eff.Redux
 
-var Redux = require('redux');
-var createStoreInternal = Redux.createStore;
+var Redux                   = require('redux');
+var createStoreInternal     = Redux.createStore;
 var applyMiddlewareInternal = Redux.applyMiddleware;
 var combineReducersInternal = Redux.combineReducers;
 
@@ -82,9 +82,13 @@ var _applyMiddleware = function(middlewares){
         for (var i = 0; i < middlewares.length; ++i) {
           all.push(extractMiddleware(middlewares[i]));
         }
-        createStoreWithMiddleware = applyMiddlewareInternal.apply(null, all)(createStoreInternal);
-        //app = combineReducersInternal([reducer]); //***TODO***
-        store = createStoreWithMiddleware(extractReducer(reducer), initialState);
+        //since v3.1.0 not needed anymore [https://github.com/rackt/redux/releases/tag/v3.1.0]
+          /***********************************************************************************************/
+          //createStoreWithMiddleware = applyMiddlewareInternal.apply(null, all)(createStoreInternal);
+          //app = combineReducersInternal([reducer]); //***TODO***
+          //store = createStoreWithMiddleware(extractReducer(reducer), initialState);
+          /************************************************************************************************/
+        store = createStoreInternal(extractReducer(reducer), initialState, applyMiddlewareInternal.apply(null, all));
         return store;
       };
     };

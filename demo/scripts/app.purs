@@ -5,7 +5,7 @@ import Unsafe.Coerce             (unsafeCoerce)
 import Control.Monad.Eff         (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Ractive (RactiveM, Ractive, Data(Data), on, ractive, get)
-import Control.Monad.Eff.Redux   (ReduxM, Next, Store, subscribe, applyMiddleware, getState, dispatch)
+import Control.Monad.Eff.Redux   (..)
 
 -- | A simple reducer accepting two actions: INCREMENT, DECREMENT
 counter ::  forall a. Int -> { "type" :: String | a } -> Int
@@ -50,7 +50,6 @@ numericListener = \store -> do
                      currentState <- (getState store)
                      log ("STATE: " ++ (unsafeCoerce currentState))
 
-                     -- | EXPERIMENTAL API | --
 -- | This is a middleware for logging
 -- | It receives a subset of the Store API (getState & dispatch) and processes `actions`
 simpleLogger :: forall a e. Store ->
@@ -86,7 +85,7 @@ main = do
        -- | ALTERNATIVE (without middleware)
        -- | Create a Redux Store by wiring up the `counter` Reducer and
        -- | the initial state `1`
-       --(createStore counter 1)
+       ---store <- (createStore counter 1)
 
        -- | Define UI's properties (RactiveJS)
        -- | Notice the presence of the property `store`. This is where we
