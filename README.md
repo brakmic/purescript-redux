@@ -4,6 +4,8 @@
 
 A library for using the Redux state container with PureScript.
 
+An article describing the architecture of this library can be found <a href="http://blog.brakmic.com/managing-application-state-with-purescript-redux/">here</a>.
+
 ### Implementation Status
 
 - <a href="http://redux.js.org/docs/api/createStore.html" target="_blank">createStore</a>
