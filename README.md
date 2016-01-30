@@ -13,6 +13,9 @@ An article describing the architecture of this library can be found <a href="htt
 - <a href="http://redux.js.org/docs/api/Store.html#dispatch" target="_blank">dispatch</a>
 - <a href="http://redux.js.org/docs/api/Store.html#getState" target="_blank">getState</a>
 - <a href="http://redux.js.org/docs/api/Store.html#replaceReducer" target="_blank">replaceReducer</a>
+- <a href="http://rackt.org/redux/docs/api/applyMiddleware.html" targer="_blank">applyMiddleware</a>
+
+This library supports <a href="https://github.com/brakmic/purescript-redux/blob/master/docs/Middleware.md">Middleware creation in PureScript</a>.
 
 ### Building
 
