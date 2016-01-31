@@ -28,6 +28,7 @@ var demoSources = [
 
 var demoForeigns = [
   "src/**/*.js",
+  "scripts/ui/**/*.js",
   "bower_components/purescript-*/src/**/*.js"
 ];
 
