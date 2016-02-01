@@ -18,6 +18,7 @@
   "author": "Harris Brakmic",
   "license": "MIT",
   "dependencies": {
+    "purescript": "^0.8.0",
     "redux": "^3.0.5"
   },
   "devDependencies": {

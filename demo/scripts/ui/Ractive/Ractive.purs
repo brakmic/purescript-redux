@@ -1,6 +1,6 @@
 module Control.Monad.Eff.Ractive where
 
-import Prelude              (Unit, bind)
+import Prelude              (Unit)
 import Control.Monad.Eff    (Eff)
 import Data.Maybe           (Maybe)
 import Data.Foreign.EasyFFI (unsafeForeignFunction, unsafeForeignProcedure)

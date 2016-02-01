@@ -5,7 +5,7 @@ import Unsafe.Coerce             (unsafeCoerce)
 import Control.Monad.Eff         (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Ractive (RactiveM, Ractive, Data(Data), on, ractive, get)
-import Control.Monad.Eff.Redux   (..)
+import Control.Monad.Eff.Redux   (ReduxM, Next, Store, subscribe, applyMiddleware, getState, dispatch)
 
 -- | A simple reducer accepting two actions: INCREMENT, DECREMENT
 counter ::  forall a. Int -> { "type" :: String | a } -> Int

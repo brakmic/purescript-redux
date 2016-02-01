@@ -11,6 +11,15 @@
     "output"
   ],
   "dependencies": {
-    "purescript-console": "^0.1.0"
+    "purescript-console": "^0.1.0",
+    "purescript-easy-ffi": "^1.0.2",
+    "purescript-foldable-traversable": "^0.4.2",
+    "purescript-strings": "^0.7.1",
+    "purescript-exceptions": "^0.3.4",
+    "purescript-functions": "^0.1.0",
+    "purescript-simple-assert": "^0.3.0",
+    "purescript-quickcheck": "^0.12.2",
+    "purescript-tuples": "^0.4.0",
+    "purescript-unsafe-coerce": "^0.1.0"
   }
 }
