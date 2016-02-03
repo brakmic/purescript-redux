@@ -4,6 +4,8 @@
 
 A library for using the Redux state container with PureScript.
 
+The currently supported version of Redux is <a href="https://github.com/rackt/redux/releases/tag/v3.2.1" target="_blank">v3.2.1</a>
+
 An article describing the architecture of this library can be found <a href="http://blog.brakmic.com/managing-application-state-with-purescript-redux/">here</a>.
 
 ### Implementation Status
@@ -38,6 +40,8 @@ gulp build-demo
 ```shell
 pulp test
 ```
+
+<img src="http://fs5.directupload.net/images/160203/kg2twwxi.png">
 
 ### Running
 
