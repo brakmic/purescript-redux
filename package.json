@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "purescript": "^0.8.0",
-    "redux": "^3.0.5"
+    "redux": "^3.2.1"
   },
   "devDependencies": {
     "async-uglify-js-webpack-plugin": "0.0.4",
