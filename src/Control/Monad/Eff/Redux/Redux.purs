@@ -1,6 +1,6 @@
 module Control.Monad.Eff.Redux where
 
-import Prelude              (Unit, bind)
+import Prelude              (Unit)
 import Control.Monad.Eff    (Eff)
 import Data.Foreign.EasyFFI (unsafeForeignFunction, unsafeForeignProcedure)
 
@@ -51,5 +51,7 @@ foreign import dispatch         :: forall a b. Action a b -> Store -> ReduxEff (
 foreign import getState         :: forall a. Store -> ReduxEff a
 
 foreign import replaceReducer   :: Reducer -> Store -> ReduxEff Unit
+
+foreign import combineReducers  :: forall a b c. Array (a -> Action b c -> a) -> ReduxEff Reducer
 
 foreign import applyMiddleware  :: forall a b c d. Array a -> (b -> Action c d -> b) -> b -> ReduxEff Store

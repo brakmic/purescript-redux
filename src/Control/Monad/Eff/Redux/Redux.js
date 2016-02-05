@@ -85,11 +85,16 @@ var _applyMiddleware = function(middlewares){
     };
   };
 };
-
-//**TODO**
-var combineReducers = function(){
-  return {};
+//For combining separate `reducing functions` int one reducer
+//http://redux.js.org/docs/api/combineReducers.html
+var combineReducers = function(reducers){
+  return function(){
+    var combined = combineReducersInternal(reducers);
+    return combined;
+  };
 };
+
+//** TODO **
 var bindActionCreators = function(){
   return {};
 };
@@ -149,5 +154,6 @@ module.exports = {
   dispatch        : _dispatch,
   getState        : _getState,
   replaceReducer  : _replaceReducer,
+  combineReducers : combineReducers,
   applyMiddleware : _applyMiddleware
 };
