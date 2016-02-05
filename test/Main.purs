@@ -73,6 +73,20 @@ testReducer :: forall a. Int ->
                          | a } -> Boolean
 testReducer v a = (counter v a) /= v
 
+-- | Wrapper for testing the 'square counter'-reducer
+testSquareReducer :: forall a. Int ->
+                         { "type" :: String
+                         , "payload" :: String
+                         | a } -> Boolean
+testSquareReducer v a = (counterSquared v a) /= v
+
+-- | Wrapper for testing the 'double counter'-reducer
+testDoubleReducer :: forall a. Int ->
+                         { "type" :: String
+                         , "payload" :: String
+                         | a } -> Boolean
+testDoubleReducer v a = (counterDoubled v a) /= v
+
 -- | Test middleware by sending actions which lead to state chages
 testMiddleware :: forall e. Int ->
                             Store ->
@@ -105,18 +119,28 @@ main = do
       let middlewares = [ simpleLogger ]
       let increment = { "type" : "INCREMENT", "payload" : "VALUE_INCR" }
       let decrement = { "type" : "DECREMENT", "payload" : "VALUE_DECR" }
+      let squareInc = { "type" : "SQUARE_INC", "payload" : "VALUE_SQUARE_INC" }
+      let squareDec = { "type" : "SQUARE_DEC", "payload" : "VALUE_SQUARE_DEC" }
+      let doubleInc = { "type" : "DOUBLE_INC", "payload" : "VALUE_DOUBLE_DEC" }
+      let doubleDec = { "type" : "DOUBLE_DEC", "payload" : "VALUE_DOUBLE_DEC" }
 
-      traceA "[TESTING] combineReducers()"
+      traceA "\r\n[TESTING] combineReducers()"
       let combined = (combineReducers [ counterDoubled, counterSquared ])
 
-      traceA "[TESTING] applyMiddleware()"
+      traceA "\r\n[TESTING] applyMiddleware()"
       -- | Try to init a new container with middleware
       store <- (applyMiddleware middlewares counter 1)
       -- | Test reducer
-      traceA "[TESTING] reducer"
+      traceA "\r\n[TESTING] reducer (+1 INC and DEC)"
       quickCheck \n -> (testReducer n increment) === true
       quickCheck \n -> (testReducer n decrement) === true
+      traceA "\r\n[TESTING] square reducer (^2 INC and DEC)"
+      quickCheck \n -> (testSquareReducer n squareInc) === true
+      quickCheck \n -> (testSquareReducer n squareDec) === true
+      traceA "\r\n[TESTING] double reducer (*2 INC and DEC)"
+      quickCheck \n -> (testDoubleReducer n doubleInc) === true
+      quickCheck \n -> (testDoubleReducer n doubleDec) === true
 
-      traceA "[TESTING] middleware"
+      traceA "\r\n[TESTING] middleware"
       -- | Test middleware
       (testMiddleware 1 store)
