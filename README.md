@@ -42,7 +42,7 @@ gulp build-demo
 pulp test
 ```
 
-<img src="http://fs5.directupload.net/images/160205/feb37lv7.png">
+<img src="http://fs5.directupload.net/images/160205/feb37lv7.png" width="510" height="500">
 
 ### Running
 
