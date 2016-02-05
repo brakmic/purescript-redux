@@ -41,7 +41,7 @@ gulp build-demo
 pulp test
 ```
 
-<img src="http://fs5.directupload.net/images/160203/kg2twwxi.png">
+<img src="http://fs5.directupload.net/images/160205/ses9wbyd.png">
 
 ### Running
 
