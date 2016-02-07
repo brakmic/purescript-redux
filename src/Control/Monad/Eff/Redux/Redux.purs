@@ -1,4 +1,25 @@
-module Control.Monad.Eff.Redux where
+module Control.Monad.Eff.Redux
+                  (
+                      ReduxM
+                    , Redux
+                    , ReduxEff
+                    , Reducer
+                    , Dispatch
+                    , GetState
+                    , CreateStore
+                    , Next
+                    , Middleware
+                    , Store
+                    , Action
+                    , createStore
+                    , subscribe
+                    , dispatch
+                    , getState
+                    , replaceReducer
+                    , combineReducers
+                    , applyMiddleware
+                  )
+                  where
 
 import Prelude              (Unit)
 import Control.Monad.Eff    (Eff)
