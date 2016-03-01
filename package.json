@@ -18,8 +18,8 @@
   "author": "Harris Brakmic",
   "license": "MIT",
   "dependencies": {
-    "purescript": "^0.8.0",
-    "redux": "^3.2.1"
+    "purescript": "^0.8.2",
+    "redux": "^3.3.1"
   },
   "devDependencies": {
     "async-uglify-js-webpack-plugin": "0.0.4",

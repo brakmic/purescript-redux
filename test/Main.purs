@@ -1,14 +1,14 @@
 module Test.Main where
 
-import Prelude                     (..)
-import Test.QuickCheck             (..)
+import Prelude
+import Test.QuickCheck
 import Unsafe.Coerce               (unsafeCoerce)
 import Control.Monad.Eff           (Eff)
 import Control.Monad.Eff.Exception (EXCEPTION)
-import Control.Monad.Eff.Console   (..)
+import Control.Monad.Eff.Console
 import Control.Monad.Eff.Random    (RANDOM)
-import Control.Monad.Eff.Redux     (..)
-import Debug.Trace                 (..)
+import Control.Monad.Eff.Redux
+import Debug.Trace
 
 -- | A simple reducer reacting to two actions: INCREMENT, DECREMENT
 counter ::  forall a. Int ->
