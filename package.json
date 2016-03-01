@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "start": "babel-node ./demo/index.js"
+    "start": "babel-node ./demo/index.js",
+    "test": "pulp test"
   },
   "keywords": [
     "redux",
