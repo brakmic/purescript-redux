@@ -1,7 +1,5 @@
 "use strict";
 
-// module Control.Monad.Eff.Redux
-
 var Redux                   = require('redux');
 var createStoreInternal     = Redux.createStore;
 var applyMiddlewareInternal = Redux.applyMiddleware;
