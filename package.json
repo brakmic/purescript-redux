@@ -17,6 +17,12 @@
     "bindings"
   ],
   "author": "Harris Brakmic",
+  "contributors": [
+    {
+      "name": "Michael Trotter",
+      "url": "https://github.com/spicydonuts"
+    }
+  ],
   "license": "MIT",
   "dependencies": {
     "purescript": "^0.9.1",
