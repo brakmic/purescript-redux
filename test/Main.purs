@@ -1,14 +1,14 @@
 module Test.Main where
 
 import Prelude
-import Test.QuickCheck
-import Unsafe.Coerce               (unsafeCoerce)
-import Control.Monad.Eff           (Eff)
+import Test.QuickCheck (quickCheck, (===))
+import Unsafe.Coerce (unsafeCoerce)
+import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Exception (EXCEPTION)
-import Control.Monad.Eff.Console
-import Control.Monad.Eff.Random    (RANDOM)
-import Control.Monad.Eff.Redux
-import Debug.Trace
+import Control.Monad.Eff.Console (CONSOLE)
+import Control.Monad.Eff.Random (RANDOM)
+import Control.Monad.Eff.Redux (ReduxM, Store, Next, applyMiddleware, combineReducers, getState, dispatch)
+import Debug.Trace (traceA)
 
 -- | A simple reducer reacting to two actions: INCREMENT, DECREMENT
 counter ::  forall a. Int ->
@@ -52,8 +52,8 @@ simpleLogger :: forall a e. Store ->
                               )
                             { "type" :: String, "payload" :: String | a }
 simpleLogger = \store next action -> do
-                                     traceA $ "Middleware (Logger) :: Action: " ++
-                                            action.type ++ ", payload: " ++
+                                     traceA $ "Middleware (Logger) :: Action: " <>
+                                            action.type <> ", payload: " <>
                                             action.payload
                                      (next action)
 
@@ -64,7 +64,7 @@ numericListener :: forall e. Store ->
                                 | e) Unit
 numericListener = \store -> do
                      currentState <- (getState store)
-                     traceA $ "STATE: " ++ (unsafeCoerce currentState)
+                     traceA $ "STATE: " <> (unsafeCoerce currentState)
 
 -- | Wrapper for testing the 'counter'-reducer
 testReducer :: forall a. Int ->
@@ -97,10 +97,10 @@ testMiddleware :: forall e. Int ->
 testMiddleware v store = do
                         actInc <- (dispatch { "type" : "INCREMENT", payload: v} store)
                         currentState <- (getState store)
-                        traceA $ "STATE: " ++ currentState
+                        traceA $ "STATE: " <> currentState
                         actDec <- (dispatch { "type" : "DECREMENT", payload: v} store)
                         currentState2 <- (getState store)
-                        traceA $ "STATE: " ++  currentState2
+                        traceA $ "STATE: " <> currentState2
                         pure unit
 
 main :: forall e.
