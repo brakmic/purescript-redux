@@ -104,17 +104,10 @@ var compose = function(){
 
 //INTERNALS
 
-//-----------------------------------------------------------------------------------------------
-//This is ugly but we must somehow 'extract' the two interleaved functions to create one plain JS
-//function with two parameters. PureScript's functions never have more than one parameter.
-//-----------------------------------------------------------------------------------------------
 var extractReducer = function(reducer){
-  var body     = reducer().toString();
-  var arg1     = reducer.toString().split(')',1)[0].replace(/\s/g,'').substr(9).split(',');
-  var arg2     = body.split(')',1)[0].replace(/\s/g,'').substr(9).split(',');
-  var tmp      = body.slice(body.indexOf("{") + 1, body.lastIndexOf("}"));
-  var _reducer = new Function(arg1, arg2, tmp);
-  return _reducer;
+  return function(a, b) {
+      return reducer(a)(b)
+  }
 };
 //The `next` call is the dispatcher call and by defaul PureScript puts an additional ()-call after
 //its completion (this is how PureScript wrapps effects from JS side). To maintain this extra call
