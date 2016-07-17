@@ -109,7 +109,7 @@ var extractReducer = function(reducer){
       return reducer(a)(b)
   }
 };
-//The `next` call is the dispatcher call and by defaul PureScript puts an additional ()-call after
+//The `next` call is the dispatcher call and by default PureScript puts an additional ()-call after
 //its completion (this is how PureScript wrapps effects from JS side). To maintain this extra call
 //on the JS side we wrap the original next(action)-call into an additional function call.
 var wrapNextDispatch = function(next){
