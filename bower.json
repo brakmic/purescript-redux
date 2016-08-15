@@ -34,5 +34,8 @@
     "purescript-debug": "^1.0.0",
     "purescript-random": "^1.0.0",
     "purescript-prelude": "^1.0.1"
+  },
+  "devDependencies": {
+    "purescript-psci-support": "^1.0.0"
   }
 }
