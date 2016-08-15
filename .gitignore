@@ -42,3 +42,6 @@ node_modules
 
 # no pursuit.json
 pursuit.json
+
+# no psc-ide port
+.psc-ide-port
