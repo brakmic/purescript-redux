@@ -42,7 +42,7 @@ gulp build-demo
 npm test
 ```
 
-<img src="http://fs5.directupload.net/images/160815/9xrpaa69.png" width="510" height="500">
+<img src="http://fs5.directupload.net/images/160815/9xrpaa69.png" width="510" height="450">
 
 ### Running
 
