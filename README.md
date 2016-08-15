@@ -4,7 +4,7 @@
 
 A library for using the Redux state container with PureScript.
 
-The currently supported version of Redux is <a href="https://github.com/reactjs/redux/releases/tag/v3.3.1" target="_blank">v3.3.1</a>
+The currently supported version of Redux is <a href="https://github.com/reactjs/redux/releases/tag/v3.5.2" target="_blank">v3.5.2</a>
 
 An article describing the architecture of this library can be found <a href="http://blog.brakmic.com/managing-application-state-with-purescript-redux/">here</a>.
 
@@ -42,7 +42,7 @@ gulp build-demo
 npm test
 ```
 
-<img src="http://fs5.directupload.net/images/160205/feb37lv7.png" width="510" height="500">
+<img src="http://fs5.directupload.net/images/160815/9xrpaa69.png" width="510" height="500">
 
 ### Running
 
