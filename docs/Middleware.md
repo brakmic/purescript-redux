@@ -17,8 +17,8 @@ simpleLogger :: forall a e. Store ->
                               )
                             { "type" :: String, "payload" :: String | a }
 simpleLogger = \store next action -> do
-                                     log ("Middleware (Logger) :: Action: " ++
-                                            action.type ++ ", payload: " ++
+                                     log ("Middleware (Logger) :: Action: " <>
+                                            action.type <> ", payload: " <>
                                             action.payload)
                                      (next action)
 ```
