@@ -56,7 +56,7 @@ We also want to be informed about any state changes. Therefore we define yet ano
 numericListener :: forall e. Store -> Eff (reduxM :: ReduxM, console :: CONSOLE | e) Unit
 numericListener = \store -> do
                      currentState <- (getState store)
-                     log ("STATE: " ++ (unsafeCoerce currentState))
+                     log ("STATE: " <> (unsafeCoerce currentState))
 ```
 
 We register it by using Redux' `subscribe` function.

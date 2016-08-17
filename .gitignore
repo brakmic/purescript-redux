@@ -45,3 +45,5 @@ pursuit.json
 
 # no psc-ide port
 .psc-ide-port
+
+.vscode/
