@@ -1,0 +1,9 @@
+{
+    "name": "purescript-redux",
+    "set": "psc-0.10.2",
+    "source": "https://github.com/purescript/package-sets.git",
+    "depends": [
+        "psci-support",
+        "prelude"
+    ]
+}

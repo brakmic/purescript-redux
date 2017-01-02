@@ -46,6 +46,7 @@
     "gulp-run": "^1.7.1",
     "hapi": "^14.2.0",
     "inert": "^4.0.1",
+    "node-babel": "^0.1.2",
     "ractive": "^0.7.3",
     "webpack": "^1.13.1",
     "webpack-config": "^6.1.2",
