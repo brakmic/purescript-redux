@@ -1,6 +1,6 @@
 {
   "name": "purescript-redux",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "Redux bindings for PureScript",
   "main": "index.js",
   "directories": {

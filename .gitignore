@@ -47,3 +47,5 @@ pursuit.json
 .psc-ide-port
 
 .vscode/
+
+.psc-package/
