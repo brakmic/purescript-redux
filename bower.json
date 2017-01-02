@@ -21,22 +21,22 @@
     "output"
   ],
   "dependencies": {
-    "purescript-console": "^1.0.0",
+    "purescript-console": "^2.0.0",
     "purescript-easy-ffi": "^2.0.0",
-    "purescript-foldable-traversable": "^1.0.0",
-    "purescript-strings": "^1.0.0",
-    "purescript-exceptions": "^1.0.0",
-    "purescript-functions": "^1.0.0",
-    "purescript-quickcheck": "^1.0.0",
-    "purescript-tuples": "^1.0.0",
-    "purescript-unsafe-coerce": "^1.0.0",
-    "purescript-maybe": "^1.0.0",
-    "purescript-debug": "^1.0.0",
-    "purescript-random": "^1.0.0",
-    "purescript-prelude": "^1.0.1"
+    "purescript-foldable-traversable": "^2.0.0",
+    "purescript-strings": "^2.1.0",
+    "purescript-exceptions": "^2.0.0",
+    "purescript-functions": "^2.0.0",
+    "purescript-quickcheck": "^3.1.1",
+    "purescript-tuples": "^3.1.0",
+    "purescript-unsafe-coerce": "^2.0.0",
+    "purescript-maybe": "^2.0.1",
+    "purescript-debug": "^2.0.0",
+    "purescript-random": "^2.0.0",
+    "purescript-prelude": "^2.1.0"
   },
   "devDependencies": {
-    "purescript-psci-support": "^1.0.0"
+    "purescript-psci-support": "^2.0.0"
   },
   "license": "MIT"
 }

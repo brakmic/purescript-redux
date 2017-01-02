@@ -1,6 +1,6 @@
 module DemoApp.WithRedux where
 
-import Prelude                   (Unit, bind, unit, pure, (-), (+), (++))
+import Prelude                   (Unit, bind, unit, pure, (-), (+), (<>))
 import Unsafe.Coerce             (unsafeCoerce)
 import Control.Monad.Eff         (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
@@ -48,7 +48,7 @@ onDecrementClicked = \r e -> do
 numericListener :: forall e. Store -> Eff (reduxM :: ReduxM, console :: CONSOLE | e) Unit
 numericListener = \store -> do
                      currentState <- (getState store)
-                     log ("STATE: " ++ (unsafeCoerce currentState))
+                     log ("STATE: " <> (unsafeCoerce currentState))
 
 -- | This is a middleware for logging
 -- | It receives a subset of the Store API (getState & dispatch) and processes `actions`
@@ -62,8 +62,8 @@ simpleLogger :: forall a e. Store ->
                               )
                             { "type" :: String, "payload" :: String | a }
 simpleLogger = \store next action -> do
-                                     log ("Middleware (Logger) :: Action: " ++
-                                            action.type ++ ", payload: " ++
+                                     log ("Middleware (Logger) :: Action: " <>
+                                            action.type <> ", payload: " <>
                                             action.payload)
                                      (next action)
 
