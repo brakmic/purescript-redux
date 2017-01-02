@@ -48,4 +48,5 @@ pursuit.json
 
 .vscode/
 
-.psc-package/
+/.psc-package/
+/.psci_modules/
