@@ -1,5 +1,6 @@
 var path         = require('path');
 var gulp         = require('gulp');
+var run          = require('gulp-run');
 var del          = require('del');
 var changed      = require('gulp-changed');
 var webpack      = require('webpack-stream');
@@ -12,6 +13,7 @@ var releaseRoot  = 'demo/scripts/release';
 
 var sources = [
   "src/**/*.purs",
+  "test/**/*.purs",
   "bower_components/purescript-*/src/**/*.purs",
 ];
 
