@@ -20,7 +20,7 @@ module Control.Monad.Eff.Redux
   ) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Control.Monad.Eff
 import Data.Foreign.EasyFFI (unsafeForeignFunction, unsafeForeignProcedure)
 
 -- | Redux Objects & Effects
@@ -33,11 +33,11 @@ type Action a b =
   | b
   }
 
-foreign import data ReduxM :: !
+foreign import data ReduxM :: Effect
 
-foreign import data Redux  :: *
+foreign import data Redux  :: Type
 
-foreign import data Store  :: *
+foreign import data Store  :: Type
 
 type ReduxEff a  = forall e. Eff (reduxM :: ReduxM | e) a
 
