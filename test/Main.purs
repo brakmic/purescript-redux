@@ -103,16 +103,15 @@ testMiddleware v store = do
                         traceA $ "STATE: " <> currentState2
                         pure unit
 
-main :: forall e.
-            Eff
-              (
-                console :: CONSOLE
-              , random  :: RANDOM
-              , err     :: EXCEPTION
-              , reduxM  :: ReduxM
-              | e
-              )
-              Unit
+main :: forall e.                
+  Eff                       
+    ( reduxM :: ReduxM      
+    , console :: CONSOLE    
+    , exception :: EXCEPTION
+    , random :: RANDOM      
+    | e                  
+    )                       
+    Unit
 main = do
       -- | Preparation
       --let reducers = [ counterDoubled, counterSquared ]

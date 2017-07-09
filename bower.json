@@ -25,6 +25,13 @@
     "purescript-eff": "^3.1.0",
     "purescript-easy-ffi": "^2.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "purescript-debug": "^3.0.0",
+    "purescript-random": "^3.0.0",
+    "purescript-console": "^3.0.0",
+    "purescript-exceptions": "^3.0.0",
+    "purescript-unsafe-coerce": "^3.0.0",
+    "purescript-quickcheck": "^4.4.0"
+  },
   "license": "MIT"
 }
