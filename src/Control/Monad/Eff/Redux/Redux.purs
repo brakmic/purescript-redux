@@ -21,7 +21,6 @@ module Control.Monad.Eff.Redux
 
 import Prelude
 import Control.Monad.Eff
-import Data.Foreign.EasyFFI (unsafeForeignFunction, unsafeForeignProcedure)
 
 -- | Redux Objects & Effects
 
@@ -52,13 +51,6 @@ type CreateStore = forall a. Reducer -> a -> ReduxEff Store
 type Next = Dispatch
 
 type Middleware = forall a b. Store -> Next -> (Action a b) -> ReduxEff (Action a b)
-
--- | FFI Calls / Shortcuts
-ffiF :: forall a. Array String -> String -> a
-ffiF = unsafeForeignFunction
-
-ffiP :: forall a. Array String -> String -> a
-ffiP = unsafeForeignProcedure
 
 -- | **TODO** Redux APIs (http://redux.js.org/)
 foreign import createStore :: forall a b c. (a -> Action b c -> a) -> a -> ReduxEff Store
