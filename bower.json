@@ -21,12 +21,12 @@
     "output"
   ],
   "dependencies": {
-    "purescript-prelude": "^4.0.0"
+    "purescript-prelude": "^4.1.0"
   },
   "devDependencies": {
     "purescript-debug": "^4.0.0",
     "purescript-random": "^4.0.0",
-    "purescript-console": "^4.0.0",
+    "purescript-console": "^4.2.0",
     "purescript-exceptions": "^4.0.0",
     "purescript-unsafe-coerce": "^4.0.0",
     "purescript-quickcheck": "^5.0.0"
