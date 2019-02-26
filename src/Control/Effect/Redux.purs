@@ -1,4 +1,4 @@
-module Control.Monad.Eff.Redux
+module Control.Effect.Redux
   ( Redux
   , Reducer
   , Dispatch
