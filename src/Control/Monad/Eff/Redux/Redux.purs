@@ -1,7 +1,5 @@
 module Control.Monad.Eff.Redux
-  ( ReduxM
-  , Redux
-  , ReduxEff
+  ( Redux
   , Reducer
   , Dispatch
   , GetState
@@ -19,8 +17,8 @@ module Control.Monad.Eff.Redux
   , applyMiddleware
   ) where
 
-import Prelude
-import Control.Monad.Eff
+import Prelude (Unit)
+import Effect (Effect)
 
 -- | Redux Objects & Effects
 
@@ -32,37 +30,33 @@ type Action a b =
   | b
   }
 
-foreign import data ReduxM :: Effect
+foreign import data Redux :: Type
 
-foreign import data Redux  :: Type
-
-foreign import data Store  :: Type
-
-type ReduxEff a  = forall e. Eff (reduxM :: ReduxM | e) a
+foreign import data Store :: Type
 
 type Reducer = forall a b c. a -> Action b c -> a
 
-type Dispatch = forall a b. Action a b -> ReduxEff (Action a b)
+type Dispatch = forall a b. Action a b -> Effect (Action a b)
 
-type GetState = forall a. ReduxEff a
+type GetState = forall a. Effect a
 
-type CreateStore = forall a. Reducer -> a -> ReduxEff Store
+type CreateStore = forall a. Reducer -> a -> Effect Store
 
 type Next = Dispatch
 
-type Middleware = forall a b. Store -> Next -> (Action a b) -> ReduxEff (Action a b)
+type Middleware = forall a b. Store -> Next -> (Action a b) -> Effect (Action a b)
 
 -- | **TODO** Redux APIs (http://redux.js.org/)
-foreign import createStore :: forall a b c. (a -> Action b c -> a) -> a -> ReduxEff Store
+foreign import createStore :: forall a b c. (a -> Action b c -> a) -> a -> Effect Store
 
-foreign import subscribe :: forall e. (Eff e Unit) -> Store -> ReduxEff Unit
+foreign import subscribe :: (Effect Unit) -> Store -> Effect Unit
 
-foreign import dispatch :: forall a b. Action a b -> Store -> ReduxEff (Action a b)
+foreign import dispatch :: forall a b. Action a b -> Store -> Effect (Action a b)
 
-foreign import getState :: forall a. Store -> ReduxEff a
+foreign import getState :: forall a. Store -> Effect a
 
-foreign import replaceReducer :: Reducer -> Store -> ReduxEff Unit
+foreign import replaceReducer :: Reducer -> Store -> Effect Unit
 
-foreign import combineReducers :: forall a b c. Array (a -> Action b c -> a) -> ReduxEff Reducer
+foreign import combineReducers :: forall a b c. Array (a -> Action b c -> a) -> Effect Reducer
 
-foreign import applyMiddleware :: forall a b c d. Array a -> (b -> Action c d -> b) -> b -> ReduxEff Store
+foreign import applyMiddleware :: forall a b c d. Array a -> (b -> Action c d -> b) -> b -> Effect Store
