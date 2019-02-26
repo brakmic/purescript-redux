@@ -3,12 +3,9 @@ module Test.Main where
 import Prelude
 import Test.QuickCheck (quickCheck, (===))
 import Unsafe.Coerce (unsafeCoerce)
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Exception (EXCEPTION)
-import Control.Monad.Eff.Console (CONSOLE)
-import Control.Monad.Eff.Random (RANDOM)
-import Control.Monad.Eff.Redux (ReduxM, Store, Next, applyMiddleware, combineReducers, getState, dispatch)
-import Debug.Trace (traceA)
+import Effect (Effect)
+import Control.Monad.Eff.Redux (Store, Next, applyMiddleware, combineReducers, getState, dispatch)
+import Debug.Trace (traceM)
 
 -- | A simple reducer reacting to two actions: INCREMENT, DECREMENT
 counter ::  forall a. Int ->
@@ -42,29 +39,21 @@ counterDoubled = \v t -> case t.type of
 
 -- | This is a middleware for logging
 -- | It receives a subset of the Store API (getState & dispatch) and processes `actions`
-simpleLogger :: forall a e. Store ->
+simpleLogger :: forall a. Store ->
                             (Next) ->
                             { "type" :: String, "payload" :: String | a } ->
-                            Eff (
-                              reduxM :: ReduxM,
-                              console :: CONSOLE
-                              | e
-                              )
-                            { "type" :: String, "payload" :: String | a }
+                            Effect { "type" :: String, "payload" :: String | a }
 simpleLogger = \store next action -> do
-                                     traceA $ "Middleware (Logger) :: Action: " <>
+                                     traceM $ "Middleware (Logger) :: Action: " <>
                                             action.type <> ", payload: " <>
                                             action.payload
                                      (next action)
 
 -- | A simple listener for displaying current state
-numericListener :: forall e. Store ->
-                             Eff (reduxM :: ReduxM
-                                , console :: CONSOLE
-                                | e) Unit
+numericListener :: Store -> Effect Unit
 numericListener = \store -> do
                      currentState <- (getState store)
-                     traceA $ "STATE: " <> (unsafeCoerce currentState)
+                     traceM $ "STATE: " <> (unsafeCoerce currentState)
 
 -- | Wrapper for testing the 'counter'-reducer
 testReducer :: forall a. Int ->
@@ -88,30 +77,17 @@ testDoubleReducer :: forall a. Int ->
 testDoubleReducer v a = (counterDoubled v a) /= v
 
 -- | Test middleware by sending actions which lead to state chages
-testMiddleware :: forall e. Int ->
-                            Store ->
-                            Eff(
-                                reduxM  :: ReduxM
-                              , console :: CONSOLE
-                              | e) Unit
+testMiddleware :: Int -> Store -> Effect Unit
 testMiddleware v store = do
                         actInc <- (dispatch { "type" : "INCREMENT", payload: v} store)
                         currentState <- (getState store)
-                        traceA $ "STATE: " <> currentState
+                        traceM $ "STATE: " <> currentState
                         actDec <- (dispatch { "type" : "DECREMENT", payload: v} store)
                         currentState2 <- (getState store)
-                        traceA $ "STATE: " <> currentState2
+                        traceM $ "STATE: " <> currentState2
                         pure unit
 
-main :: forall e.                
-  Eff                       
-    ( reduxM :: ReduxM      
-    , console :: CONSOLE    
-    , exception :: EXCEPTION
-    , random :: RANDOM      
-    | e                  
-    )                       
-    Unit
+main :: Effect Unit
 main = do
       -- | Preparation
       --let reducers = [ counterDoubled, counterSquared ]
@@ -123,23 +99,23 @@ main = do
       let doubleInc = { "type" : "DOUBLE_INC", "payload" : "VALUE_DOUBLE_DEC" }
       let doubleDec = { "type" : "DOUBLE_DEC", "payload" : "VALUE_DOUBLE_DEC" }
 
-      traceA "\r\n[TESTING] combineReducers()"
+      traceM "\r\n[TESTING] combineReducers()"
       let combined = (combineReducers [ counterDoubled, counterSquared ])
 
-      traceA "\r\n[TESTING] applyMiddleware()"
+      traceM "\r\n[TESTING] applyMiddleware()"
       -- | Try to init a new container with middleware
       store <- (applyMiddleware middlewares counter 1)
       -- | Test reducer
-      traceA "\r\n[TESTING] reducer (+1 INC and DEC)"
+      traceM "\r\n[TESTING] reducer (+1 INC and DEC)"
       quickCheck \n -> (testReducer n increment) === true
       quickCheck \n -> (testReducer n decrement) === true
-      traceA "\r\n[TESTING] square reducer (^2 INC and DEC)"
+      traceM "\r\n[TESTING] square reducer (^2 INC and DEC)"
       quickCheck \n -> (testSquareReducer n squareInc) === true
       quickCheck \n -> (testSquareReducer n squareDec) === true
-      traceA "\r\n[TESTING] double reducer (*2 INC and DEC)"
+      traceM "\r\n[TESTING] double reducer (*2 INC and DEC)"
       quickCheck \n -> (testDoubleReducer n doubleInc) === true
       quickCheck \n -> (testDoubleReducer n doubleDec) === true
 
-      traceA "\r\n[TESTING] middleware"
+      traceM "\r\n[TESTING] middleware"
       -- | Test middleware
       (testMiddleware 1 store)
