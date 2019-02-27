@@ -6,7 +6,7 @@ A library for using the Redux state container with PureScript.
 
 Currently supports Redux <a href="https://github.com/reactjs/redux/releases/tag/v3.5.2" target="_blank">v3.5.2</a>
 
-Compatible with PureScript 0.11.x
+Compatible with PureScript 0.12.x
 
 An article describing the architecture of this library can be found <a href="http://blog.brakmic.com/managing-application-state-with-purescript-redux/">here</a>.
 
@@ -35,7 +35,7 @@ gulp
 *Demo App*
 
 ```shell
-gulp build-demo
+gulp make-demo
 ```
 
 *Tests*

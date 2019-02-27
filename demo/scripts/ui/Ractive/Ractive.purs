@@ -1,9 +1,9 @@
-module Control.Monad.Eff.Ractive where
+module Effect.Ractive where
 
 import Prelude              (Unit)
-import Control.Monad.Eff    (Eff)
+import Effect               (Effect)
 import Data.Maybe           (Maybe)
-import Data.Foreign.EasyFFI (unsafeForeignFunction, unsafeForeignProcedure)
+import Data.Function.Uncurried (Fn1, Fn2, Fn3, runFn1, runFn2, runFn3)
 
 data Data a b = Data {
   template :: String,
@@ -27,9 +27,9 @@ type ObserverEventData a b = {
   keyPath  :: String
 }
 
-type RactiveEventCallback    = forall a e. Ractive -> Event -> Eff e a
+type RactiveEventCallback    = forall a. Ractive -> Event -> Effect a
 
-type RactiveObserverCallback = forall a b c e. a -> b -> String -> Eff e c
+type RactiveObserverCallback = forall a b c. a -> b -> String -> Effect c
 
 type ObserverOptions = {
   init    :: Boolean,
@@ -51,11 +51,11 @@ type FindAllComponentsOptions = {
 
 --  animate API params
 
-type StepFunction = forall t value. t -> value -> RactiveEff Unit
+type StepFunction = forall t value. t -> value -> Effect Unit
 
-type CompleteFunction = forall t value. t -> value -> RactiveEff Unit
+type CompleteFunction = forall t value. t -> value -> Effect Unit
 
-type EasingFunction = forall t value. t -> value -> RactiveEff Unit
+type EasingFunction = forall t value. t -> value -> Effect Unit
 
 data EasingParam = String | AnimateEasingFunction
 
@@ -70,71 +70,73 @@ type AnimateOptions = {
 
 data RenderQuery             = RQString String | RQNode DOMNode
 
-foreign import data DOMEvent    :: *
+foreign import data DOMEvent    :: Type
 
-foreign import data DOMNode     :: *
+foreign import data DOMNode     :: Type
 
-foreign import data RactiveM    :: !
+foreign import data RactiveM    :: Type
 
-foreign import data Ractive     :: *
+foreign import data Ractive     :: Type
 
-foreign import data Text        :: *
+foreign import data Text        :: Type
 
-foreign import data Element     :: *
+foreign import data Element     :: Type
 
-foreign import data Cancellable :: *
+foreign import data Cancellable :: Type
 
-foreign import data Easing :: *
-
-type RactiveEff a = forall e. Eff (ractiveM :: RactiveM | e) a
-
-ffiF              :: forall a. Array String -> String -> a
-ffiF              = unsafeForeignFunction
-
-ffiP              :: forall a. Array String -> String -> a
-ffiP              = unsafeForeignProcedure
+foreign import data Easing :: Type
 
 -- | Foreign Imports
 
-foreign import ractive           :: forall a b. Data a b -> RactiveEff Ractive
-foreign import extend            :: forall a b. Data a b -> RactiveEff Ractive
+foreign import ractive           :: forall a b. Data a b -> Effect Ractive
+foreign import extend            :: forall a b. Data a b -> Effect Ractive
 
-foreign import on                :: forall a e. String -> (Event -> Eff e a) -> Ractive -> RactiveEff Cancellable
-foreign import off               :: Maybe String -> Maybe RactiveEventCallback -> Ractive -> RactiveEff Ractive
+foreign import on                :: forall a. String -> (Event -> Effect a) -> Ractive -> Effect Cancellable
+foreign import off               :: Maybe String -> Maybe RactiveEventCallback -> Ractive -> Effect Ractive
 
-foreign import get               :: forall a. String -> Ractive -> RactiveEff a
-foreign import set               :: forall a. String -> a -> Ractive -> RactiveEff Unit
+foreign import get               :: forall a. String -> Ractive -> Effect a
+foreign import set               :: forall a. String -> a -> Ractive -> Effect Unit
 
-foreign import push              :: forall a b e. String -> a -> Maybe (b -> (Eff e Unit)) -> Ractive -> RactiveEff Unit
-foreign import pop               :: forall a e. String -> Maybe (a -> (Eff e Unit)) -> Ractive -> RactiveEff Unit
+foreign import push              :: forall a b. String -> a -> Maybe (b -> (Effect Unit)) -> Ractive -> Effect Unit
+foreign import pop               :: forall a. String -> Maybe (a -> (Effect Unit)) -> Ractive -> Effect Unit
 
-foreign import observe           :: forall a b e. String -> (a -> b -> String -> (Eff e Unit)) -> Maybe ObserverOptions -> Ractive -> RactiveEff Cancellable
-foreign import observeOnce       :: forall a b e. String -> (a -> b -> String -> (Eff e Unit)) -> Maybe ObserverOptions -> Ractive -> RactiveEff Cancellable
+foreign import observe           :: forall a b. String -> (a -> b -> String -> (Effect Unit)) -> Maybe ObserverOptions -> Ractive -> Effect Cancellable
+foreign import observeOnce       :: forall a b. String -> (a -> b -> String -> (Effect Unit)) -> Maybe ObserverOptions -> Ractive -> Effect Cancellable
 
-foreign import find              :: String -> Ractive -> RactiveEff DOMNode
-foreign import findAll           :: String -> Maybe FindAllOptions -> Ractive -> RactiveEff (Array DOMNode)
+foreign import find              :: String -> Ractive -> Effect DOMNode
+foreign import findAll           :: String -> Maybe FindAllOptions -> Ractive -> Effect (Array DOMNode)
 
-foreign import findComponent     :: String -> Ractive -> RactiveEff Ractive
-foreign import findAllComponents :: String -> Maybe FindAllComponentsOptions -> Ractive -> RactiveEff (Array Ractive)
+foreign import findComponent     :: String -> Ractive -> Effect Ractive
+foreign import findAllComponents :: String -> Maybe FindAllComponentsOptions -> Ractive -> Effect (Array Ractive)
 
-foreign import add               :: forall a e. String -> Maybe Number -> Maybe (Ractive -> Eff e a) -> Ractive -> RactiveEff Unit
-foreign import subtract          :: forall a e. String -> Maybe Number -> Maybe (Ractive -> Eff e a) -> Ractive -> RactiveEff Unit
+foreign import add               :: forall a. String -> Maybe Number -> Maybe (Ractive -> Effect a) -> Ractive -> Effect Unit
+foreign import subtract          :: forall a. String -> Maybe Number -> Maybe (Ractive -> Effect a) -> Ractive -> Effect Unit
 
-foreign import animate           :: forall a. String -> a -> Maybe AnimateOptions -> Ractive -> RactiveEff Unit
+foreign import animate           :: forall a. String -> a -> Maybe AnimateOptions -> Ractive -> Effect Unit
+
+foreign import ractiveFromDataImpl :: forall a b. Fn1 (Data a b) (Effect Ractive)
+
+foreign import setPartialImpl :: Fn3 String String Ractive (Effect Unit)
+
+foreign import getPartialImpl :: Fn2 String Ractive (Effect String)
+
+foreign import updateModelImpl :: Fn1 Ractive (Effect Unit)
+
+foreign import renderByIdImpl :: Fn2 String Ractive (Effect Unit)
 
 -- | End Foreign Imports
 
-ractiveFromData :: forall a b. Data a b -> RactiveEff Ractive
-ractiveFromData = ffiF ["data", ""] "new Ractive(data);"
+ractiveFromData :: forall a b. Data a b -> Effect Ractive
+ractiveFromData = runFn1 ractiveFromDataImpl
 
-setPartial      :: String -> String -> Ractive -> RactiveEff Unit
-setPartial      = ffiP ["selector", "value", "ractive"] "ractive.partials[selector] = value;"
+setPartial      :: String -> String -> Ractive -> Effect Unit
+setPartial      = runFn3 setPartialImpl
 
-getPartial      :: String -> Ractive -> RactiveEff String
-getPartial      = ffiF ["selector","ractive"] "ractive.partials[selector];"
+getPartial      :: String -> Ractive -> Effect String
+getPartial      = runFn2 getPartialImpl
 
-updateModel     :: Ractive -> RactiveEff Unit
-updateModel     = ffiP ["ractive"] "ractive.updateModel();"
+updateModel     :: Ractive -> Effect Unit
+updateModel     = runFn1 updateModelImpl
 
-renderById      :: String -> Ractive -> RactiveEff Unit
-renderById      = ffiP ["id","ractive"] "ractive.render(id);"
+renderById      :: String -> Ractive -> Effect Unit
+renderById      = runFn2 renderByIdImpl
