@@ -344,22 +344,47 @@ var extend = function(settings){
     };
 }
 
+var ractiveFromDataImpl = function(data) {
+  return new Ractive(data);
+}
+
+var setPartialImpl = function(selector, value, ractive) {
+  ractive.partials[selector] = value;
+}
+
+var getPartialImpl = function(selector, ractive) {
+  return ractive.partials[selector];
+}
+
+var updateModelImpl = function(ractive) {
+  ractive.updateModel();
+}
+
+var renderByIdImpl = function(id, ractive) {
+  ractive.render(id);
+}
+
 module.exports = {
-  get               : get,
-  set               : set,
-  on                : on,
-  off               : off,
-  push              : push,
-  pop               : pop,
-  observe           : observe,
-  observeOnce       : observeOnce,
-  find              : find,
-  findAll           : findAll,
-  findComponent     : findComponent,
-  findAllComponents : findAllComponents,
-  add               : add,
-  subtract          : subtract,
-  ractive           : ractive,
-  extend            : extend,
-  animate           : animate
+  get                 : get,
+  set                 : set,
+  on                  : on,
+  off                 : off,
+  push                : push,
+  pop                 : pop,
+  observe             : observe,
+  observeOnce         : observeOnce,
+  find                : find,
+  findAll             : findAll,
+  findComponent       : findComponent,
+  findAllComponents   : findAllComponents,
+  add                 : add,
+  subtract            : subtract,
+  ractive             : ractive,
+  ractiveFromDataImpl : ractiveFromDataImpl,
+  setPartialImpl      : setPartialImpl,
+  getPartialImpl      : getPartialImpl,
+  renderByIdImpl      : renderByIdImpl,
+  updateModelImpl     : updateModelImpl,
+  extend              : extend,
+  animate             : animate
 }
