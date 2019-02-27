@@ -1,4 +1,4 @@
-module Control.Effect.Ractive where
+module Effect.Ractive where
 
 import Prelude              (Unit)
 import Effect               (Effect)

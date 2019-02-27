@@ -4,7 +4,7 @@ import Prelude
 import Test.QuickCheck (quickCheck, (===))
 import Unsafe.Coerce (unsafeCoerce)
 import Effect (Effect)
-import Control.Effect.Redux (Store, Next, applyMiddleware, combineReducers, getState, dispatch)
+import Effect.Redux (Store, Next, applyMiddleware, combineReducers, getState, dispatch)
 import Debug.Trace (traceM)
 
 -- | A simple reducer reacting to two actions: INCREMENT, DECREMENT

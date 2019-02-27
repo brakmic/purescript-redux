@@ -4,8 +4,8 @@ import Prelude                   (Unit, bind, unit, pure, discard, (-), (+), (<>
 import Unsafe.Coerce             (unsafeCoerce)
 import Effect                    (Effect)
 import Effect.Console            (log)
-import Control.Effect.Ractive    (Data(Data), Ractive, get, on, ractive)
-import Control.Effect.Redux      (Next, Store, subscribe, applyMiddleware, getState, dispatch)
+import Effect.Ractive    (Data(Data), Ractive, get, on, ractive)
+import Effect.Redux      (Next, Store, subscribe, applyMiddleware, getState, dispatch)
 
 -- | A simple reducer accepting two actions: INCREMENT, DECREMENT
 counter ::  forall a. Int -> { "type" :: String | a } -> Int

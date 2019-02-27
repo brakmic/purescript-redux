@@ -1,4 +1,4 @@
-module Control.Effect.Redux
+module Effect.Redux
   ( Redux
   , Reducer
   , Dispatch
