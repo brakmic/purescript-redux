@@ -1,11 +1,11 @@
 module DemoApp.WithRedux where
 
-import Prelude                   (Unit, bind, unit, pure, (-), (+), (<>))
+import Prelude                   (Unit, bind, unit, pure, discard, (-), (+), (<>))
 import Unsafe.Coerce             (unsafeCoerce)
-import Control.Monad.Eff         (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
-import Control.Monad.Eff.Ractive (RactiveM, Ractive, Data(Data), on, ractive, get)
-import Control.Monad.Eff.Redux   (ReduxM, Next, Store, subscribe, applyMiddleware, getState, dispatch)
+import Effect                    (Effect)
+import Effect.Console            (log)
+import Control.Effect.Ractive    (Data(Data), Ractive, get, on, ractive)
+import Control.Effect.Redux      (Next, Store, subscribe, applyMiddleware, getState, dispatch)
 
 -- | A simple reducer accepting two actions: INCREMENT, DECREMENT
 counter ::  forall a. Int -> { "type" :: String | a } -> Int
@@ -15,52 +15,37 @@ counter = \v t -> case t.type of
                         _ -> v
 
 -- | Event handler for handling button clicks
-onIncrementClicked :: forall event eff.
+onIncrementClicked :: forall event.
                       Ractive ->
                       event   ->
-                      Eff (
-                            ractiveM :: RactiveM,
-                            reduxM   :: ReduxM,
-                            console  :: CONSOLE
-                            | eff
-                          ) Unit
+                      Effect Unit
 onIncrementClicked = \r e -> do
                              store <- (get "store" r)
                              action <- (dispatch { "type" : "INCREMENT", payload: "TEST INCR" } store)
                              pure unit
 
 -- | Event handler for handling button clicks
-onDecrementClicked :: forall event eff.
+onDecrementClicked :: forall event.
                         Ractive ->
                         event   ->
-                        Eff (
-                              ractiveM :: RactiveM,
-                              reduxM   :: ReduxM,
-                              console  :: CONSOLE
-                              | eff
-                            ) Unit
+                        Effect Unit
 onDecrementClicked = \r e -> do
                              store <- (get "store" r)
                              action <- (dispatch { "type" : "DECREMENT", payload: "TEST DECR" } store)
                              pure unit
 
 -- | A simple listener for displaying current state
-numericListener :: forall e. Store -> Eff (reduxM :: ReduxM, console :: CONSOLE | e) Unit
+numericListener :: Store -> Effect Unit
 numericListener = \store -> do
                      currentState <- (getState store)
                      log ("STATE: " <> (unsafeCoerce currentState))
 
 -- | This is a middleware for logging
 -- | It receives a subset of the Store API (getState & dispatch) and processes `actions`
-simpleLogger :: forall a e. Store ->
+simpleLogger :: forall a. Store ->
                             (Next) ->
                             { "type" :: String, "payload" :: String | a } ->
-                            Eff (
-                              reduxM :: ReduxM,
-                              console :: CONSOLE
-                              | e
-                              )
-                            { "type" :: String, "payload" :: String | a }
+                            Effect { "type" :: String, "payload" :: String | a }
 simpleLogger = \store next action -> do
                                      log ("Middleware (Logger) :: Action: " <>
                                             action.type <> ", payload: " <>
@@ -68,14 +53,7 @@ simpleLogger = \store next action -> do
                                      (next action)
 
 -- | The app starts here
-main :: forall eff. Eff
-          (
-            console  :: CONSOLE,
-            ractiveM :: RactiveM,
-            reduxM   :: ReduxM
-          | eff
-          )
-          Unit
+main :: Effect Unit
 main = do
        -- | Create an array of middlewares
        let middlewares = [ simpleLogger ]
@@ -112,7 +90,7 @@ main = do
        (subscribe (numericListener store) store)
 
        -- Register event-handlers
-       on "increment-clicked" (onIncrementClicked ract) ract
-       on "decrement-clicked" (onDecrementClicked ract) ract
+       _ <- on "increment-clicked" (onIncrementClicked ract) ract
+       _ <- on "decrement-clicked" (onDecrementClicked ract) ract
 
        log "Demo App with Redux!"
