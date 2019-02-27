@@ -46,7 +46,7 @@
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-changed": "^1.3.2",
-    "gulp-purescript": "^1.0.0",
+    "gulp-purescript": "^2.0.1",
     "gulp-run": "^1.7.1",
     "hapi": "^14.2.0",
     "inert": "^4.0.1",

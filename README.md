@@ -35,7 +35,7 @@ gulp
 *Demo App*
 
 ```shell
-gulp build-demo
+gulp make-demo
 ```
 
 *Tests*

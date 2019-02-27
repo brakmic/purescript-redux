@@ -41,23 +41,23 @@ gulp.task('webpack', function() {
 });
 
 gulp.task("make", function () {
-  return purescript.psc({ src: sources, ffi: foreigns });
+  return purescript.compile({ src: sources, ffi: foreigns });
 });
 
 gulp.task("make-demo", function () {
-  return purescript.psc({ src: demoSources, ffi: demoForeigns });
+  return purescript.compile({ src: demoSources, ffi: demoForeigns });
 });
 
 gulp.task("bundle", ["make"], function () {
-  return purescript.pscBundle({ src: "output/**/*.js", output: "dist/bundle.js" });
+  return purescript.bundle({ src: "output/**/*.js", output: "dist/bundle.js" });
 });
 
 gulp.task("bundle-demo", ["make-demo"], function () {
-  return purescript.pscBundle({ src: "output/DemoApp.WithRedux/**/*.js", output: "dist/demo/bundle.js" });
+  return purescript.bundle({ src: "output/DemoApp.WithRedux/**/*.js", output: "dist/demo/bundle.js" });
 });
 
 gulp.task("docs", function () {
-  return purescript.pscDocs({
+  return purescript.docs({
       src: sources,
       docgen: {
         "Name.Of.Module1": "docs/Name/Of/Module1.md",
@@ -86,7 +86,7 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task("test", ["make"], function() {
-  return purescript.pscBundle({ src: "output/**/*.js", main: "Test.Main" })
+  return purescript.bundle({ src: "output/**/*.js", main: "Test.Main" })
     .pipe(run("node"));
 });
 
